@@ -11,7 +11,7 @@ const Profile = () => {
     return <span className="loading loading-spinner loading-lg"></span>;
   } else if (user) {
     return (
-      <div>
+      <div className="mt-24">
         <div>
           <h2></h2>
         </div>

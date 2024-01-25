@@ -60,6 +60,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      setLoading(false);
       if (currentUser) {
         newUser({
           email: currentUser.email,
@@ -67,7 +68,6 @@ export const AuthProvider = ({ children }) => {
           profilePic: currentUser.photoURL,
         });
       }
-      setLoading(false);
     });
     return () => {
       unSubscribe();

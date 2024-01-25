@@ -1,42 +1,69 @@
 "use client";
 
-import { FaHome } from "react-icons/fa";
-import { IoCreateSharp } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
+import { FaCirclePlus } from "react-icons/fa6";
+import { FiPlusCircle } from "react-icons/fi";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
+import Image from "next/image";
+import useAuthContext from "@/utils/AuthProvider";
 
 const Navbar = () => {
   const pathName = usePathname();
-  const navLinks = [
-    {
-      name: "Home",
-      path: "/",
-      icon: <FaHome />,
-    },
-    {
-      name: "Create Post",
-      path: "/create-post",
-      icon: <IoCreateSharp />,
-    },
-    {
-      name: "Profile",
-      path: "/profile",
-      icon: <CgProfile />,
-    },
-  ];
+  const { user, loading } = useAuthContext();
+
   return (
-    <nav className="shadow-[0_3px_10px_rgb(0,0,0,0.2)] fixed bottom-6 left-1/2 -translate-x-1/2 w-10/12 flex justify-evenly items-center text-2xl py-5 rounded-xl text-gray-400 bg-white">
-      {navLinks?.map((e, i) => (
-        <Link
-          href={e.path}
-          key={i}
-          className={`${pathName === e.path ? "text-primary" : ""}`}
-        >
-          {e.icon}
+    <nav
+      className={`flex justify-between items-center shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] fixed left-0 top-0 w-full bg-white p-4 ${
+        pathName === "/login" ? "hidden" : ""
+      }`}
+    >
+      <Link href={"/"} className="flex items-center gap-3">
+        <Image src={"/icons8-blog-64.png"} alt="logo" height={34} width={34} />
+      </Link>
+      <div className="flex items-center gap-2">
+        <Link href={"/create-post"} className="font-normal">
+          <FiPlusCircle className="text-3xl" />
         </Link>
-      ))}
+        {!loading ? (
+          user ? (
+            <div className="dropdown dropdown-end">
+              <div
+                tabIndex={0}
+                role="button"
+                className="btn btn-ghost btn-circle avatar"
+              >
+                <div className="w-8 rounded-full">
+                  <Image
+                    src={user?.photoURL}
+                    alt="pic"
+                    height={34}
+                    width={34}
+                    className="rounded-full"
+                  />
+                </div>
+              </div>
+              <ul
+                tabIndex={0}
+                className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+              >
+                <li>
+                  <Link href={"/profile"} className="justify-between">
+                    Profile
+                  </Link>
+                </li>
+                <li>
+                  <span>Logout</span>
+                </li>
+              </ul>
+            </div>
+          ) : (
+            <CgProfile className="text-3xl" />
+          )
+        ) : (
+          <span className="loading loading-spinner text-secondary"></span>
+        )}
+      </div>
     </nav>
   );
 };

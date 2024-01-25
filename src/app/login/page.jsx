@@ -13,12 +13,12 @@ const Login = () => {
   return (
     <div className="w-3/4 h-screen mx-auto flex flex-col items-center justify-center">
       <div className="flex items-center gap-4">
-        <Image src="/blog.png" alt="logo" height={64} width={64} />
-        <h1 className="text-5xl font-bold text-primary">Blog</h1>
+        <Image src="/icons8-blog-64.png" alt="logo" height={40} width={40} className="pb-1" />
+        <h1 className="text-4xl font-bold">BLOG</h1>
       </div>
       <p className="text-center font-light mt-4">This is a blogging website that explores the nextjs capabities</p>
       <button
-        className="btn btn-primary text-white mt-4 mb-24"
+        className="btn btn-primary text-white mt-4"
         onClick={() => {
           handleGoogleUser()
             .then(() => {

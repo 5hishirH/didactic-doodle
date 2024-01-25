@@ -8,7 +8,7 @@ import { useState } from "react";
 
 const createPost = () => {
   const [post, setPost] = useState({ title: "", post: "" });
-  const { user } = useAuthContext();
+  const { user, loading } = useAuthContext();
   const [submitting, setSubmitting] = useState(false);
   const router = useRouter();
   const createPost = async (e) => {
@@ -28,13 +28,21 @@ const createPost = () => {
   };
   return (
     <div>
-      <Form
-        type="Create"
-        post={post}
-        setPost={setPost}
-        submitting={submitting}
-        handleSubmit={createPost}
-      />
+      {loading ? (
+        <div className="h-screen flex justify-center items-center">
+          <span className="loading loading-spinner text-primary"></span>
+        </div>
+      ) : user ? (
+        <Form
+          type="Create"
+          post={post}
+          setPost={setPost}
+          submitting={submitting}
+          handleSubmit={createPost}
+        />
+      ) : (
+        router.push("/login?from=create-post")
+      )}
     </div>
   );
 };

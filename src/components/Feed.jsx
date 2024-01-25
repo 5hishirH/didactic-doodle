@@ -5,11 +5,11 @@ const Feed = async () => {
   const promptData = await prompts();
 
   return (
-    <div className="w-10/12 mx-auto flex flex-col gap-8">
+    <div className="flex flex-col gap-4">
       {promptData.map((e, i) => (
         <div
           key={i}
-          className="shadow-[0px_0px_0px_1px_rgba(0,0,0,0.06),0px_1px_1px_-0.5px_rgba(0,0,0,0.06),0px_3px_3px_-1.5px_rgba(0,0,0,0.06),_0px_6px_6px_-3px_rgba(0,0,0,0.06),0px_12px_12px_-6px_rgba(0,0,0,0.06),0px_24px_24px_-12px_rgba(0,0,0,0.06)] rounded-xl p-6"
+          className="shadow-[0_3px_10px_rgb(0,0,0,0.2)] p-4 mb-4"
         >
           <h2 className="text-lg font-medium">{e.title}</h2>
           <p className="mt-3">{e.prompt}</p>
