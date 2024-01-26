@@ -1,8 +1,11 @@
+"use server";
+
 import prisma from "@/utils/prisma";
 
 const prompts = async () => {
   const result = await prisma.Post.findMany({
     select: {
+      id: true,
       title: true,
       prompt: true,
       date: true,

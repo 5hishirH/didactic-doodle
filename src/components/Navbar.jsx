@@ -1,7 +1,6 @@
 "use client";
 
 import { CgProfile } from "react-icons/cg";
-import { FaCirclePlus } from "react-icons/fa6";
 import { FiPlusCircle } from "react-icons/fi";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -10,8 +9,7 @@ import useAuthContext from "@/utils/AuthProvider";
 
 const Navbar = () => {
   const pathName = usePathname();
-  const { user, loading } = useAuthContext();
-
+  const { user, loading, handleSignOut } = useAuthContext();
   return (
     <nav
       className={`flex justify-between items-center shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] fixed left-0 top-0 w-full bg-white p-4 ${
@@ -22,7 +20,7 @@ const Navbar = () => {
         <Image src={"/icons8-blog-64.png"} alt="logo" height={34} width={34} />
       </Link>
       <div className="flex items-center gap-2">
-        <Link href={"/create-post"} className="font-normal">
+        <Link href={"/create-post"} prefetch={true} className="font-normal">
           <FiPlusCircle className="text-3xl" />
         </Link>
         {!loading ? (
@@ -53,12 +51,14 @@ const Navbar = () => {
                   </Link>
                 </li>
                 <li>
-                  <span>Logout</span>
+                  <span onClick={handleSignOut}>Logout</span>
                 </li>
               </ul>
             </div>
           ) : (
-            <CgProfile className="text-3xl" />
+            <Link href={"/login"}>
+              <CgProfile className="text-3xl" />
+            </Link>
           )
         ) : (
           <span className="loading loading-spinner text-secondary"></span>
